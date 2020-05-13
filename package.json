@@ -7,19 +7,20 @@
   "author": "Oliver Lorenz <mail@oliverlorenz.com>",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^1.1.1"
+    "puppeteer": "^3.0.4"
   },
   "bugs": {
-    "url": "https://github.com/oliverlorenz/node-red-contrib-puppeteer/issues"
+    "url": "https://github.com/d0uub/node-red-contrib-puppeteer-new/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oliverlorenz/node-red-contrib-puppeteer"
+    "url": "https://github.com/d0uub/node-red-contrib-puppeteer-new"
   },
   "keywords": [
     "chrome",
     "browser automation",
-    "puppeteer"
+    "puppeteer",
+    "node-red"
   ],
   "node-red": {
     "nodes": {
