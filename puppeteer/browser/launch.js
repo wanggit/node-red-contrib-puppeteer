@@ -10,14 +10,13 @@ module.exports = function (RED) {
     var node = this
 
     // Retrieve the config node
-    this.on('input', function (msg) {
-      puppeteer.launch( { headless: node.headless, slowMo: node.slowMo } )
-        .then((browser) => {
-          msg.puppeteer = {
-            browser
-          }
-          node.send(msg)
-        })
+    this.on('input', async function (msg) {
+      msg.puppeteer = {
+        browser:await puppeteer.launch( { headless: node.headless, slowMo: node.slowMo, defaultViewport: null, ignoreHTTPSErrors: true } )
+      }
+      msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
+      node.send(msg)
+        
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-headless").val(this.headless === true ? "1" : "0")

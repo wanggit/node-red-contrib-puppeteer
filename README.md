@@ -1,6 +1,6 @@
-# node-red-contrib-puppeteer
+# node-red-contrib-puppeteer-new
 
-NodeRED nodes to control a headless chrome with puppeteer
+Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
