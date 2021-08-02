@@ -7,7 +7,7 @@
   "author": "Roy Chan <d0uuub@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^3.0.4"
+    "puppeteer": "^10.1.0"
   },
   "bugs": {
     "url": "https://github.com/d0uub/node-red-contrib-puppeteer-new/issues"

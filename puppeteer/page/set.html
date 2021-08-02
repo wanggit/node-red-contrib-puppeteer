@@ -9,9 +9,9 @@
       },
       inputs:1,
       outputs:1,
-      icon: "fa-file-code-o.png",
+      icon: "set.svg",
       label: function() {
-          return this.name || "set value";
+          return this.name || this.selector + "=" + this.value;
       },
       paletteLabel: "set value"
     });
