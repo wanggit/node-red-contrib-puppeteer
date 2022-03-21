@@ -13,7 +13,14 @@
       label: function() {
           return this.name || "querySelector";
       },
-      paletteLabel: "querySelector"
+      paletteLabel: "querySelector",
+      oneditprepare: function() {
+        $("#node-input-selector").typedInput({
+          type:"str",
+          types:["str","msg","flow","global"],
+          typeField: "#node-input-selector-type"
+        })
+      }
     });
 </script>
 
@@ -21,6 +28,7 @@
   <div class="form-row">
       <label for="node-input-selector">selector</label>
       <input id="node-input-selector"></input>
+      <input type="hidden" id="node-input-selector-type"></input>
   </div>
   <div class="form-row">
       <label for="node-input-property">property</label>

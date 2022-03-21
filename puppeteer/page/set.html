@@ -13,7 +13,19 @@
       label: function() {
           return this.name || this.selector + "=" + this.value;
       },
-      paletteLabel: "set value"
+      paletteLabel: "Set Content",
+      oneditprepare: function() {
+        $("#node-input-selector").typedInput({
+          type:"str",
+          types:["str","msg","flow","global"],
+          typeField: "#node-input-selector-type"
+        })
+        $("#node-input-value").typedInput({
+          type:"str",
+          types:["str","msg","flow","global"],
+          typeField: "#node-input-value-type"
+        })
+      }
     });
 </script>
 
@@ -25,10 +37,12 @@
   <div class="form-row">
     <label for="node-input-selector">Selector</label>
     <input id="node-input-selector"></input>
+    <input type="hidden" id="node-input-selector-type"></input>
   </div>
   <div class="form-row">
     <label for="node-input-value">Value</label>
     <input id="node-input-value"></input>
+    <input type="hidden" id="node-input-value-type"></input>
   </div>
 </script>
 
