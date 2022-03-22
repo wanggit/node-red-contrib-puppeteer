@@ -6,7 +6,7 @@ module.exports = function (RED) {
     
     // Retrieve the config node
     this.on('input', function (msg) {
-      msg.puppeteer.page.waitFor(node.selector)
+      msg.puppeteer.page.waitForSelector(node.selector)
         .then(() => {
           node.send(msg) 
         }) 
