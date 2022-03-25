@@ -4,7 +4,8 @@
       color: '#8BBDD9',
       defaults: {
         name: { value: '' },
-        url:  { value: '', required: true }
+        url:  { value:'', required: true},
+        urltype: {value:'str'}
       },
       inputs:1,
       outputs:1,
@@ -15,11 +16,12 @@
       paletteLabel: "goto",
       oneditprepare: function() {
         $("#node-input-url").typedInput({
-          type:"str",
+          default:'str',
           types:["str","msg","flow","global"],
-          typeField: "#node-input-url-type"
+          typeField: "#node-input-urltype"
         })
-      }
+      },
+
     });
 </script>
 
@@ -27,7 +29,7 @@
   <div class="form-row">
     <label for="node-input-url">url</label>
     <input id="node-input-url"></input>
-    <input type="hidden" id="node-input-url-type"></input>
+    <input type="hidden" id="node-input-urltype"></input>
   </div>
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>

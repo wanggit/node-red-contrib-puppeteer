@@ -5,7 +5,9 @@
       defaults: {
         name: { value: '' },
         selector:  { value: '', required: true },
-        value:  { value: '', required: true }
+        selectortype:  { value: 'str'},
+        value:  { value: '', required: true },
+        valuetype:  { value: 'str'}
       },
       inputs:1,
       outputs:1,
@@ -18,12 +20,12 @@
         $("#node-input-selector").typedInput({
           type:"str",
           types:["str","msg","flow","global"],
-          typeField: "#node-input-selector-type"
+          typeField: "#node-input-selectortype"
         })
         $("#node-input-value").typedInput({
           type:"str",
           types:["str","msg","flow","global"],
-          typeField: "#node-input-value-type"
+          typeField: "#node-input-valuetype"
         })
       }
     });
@@ -37,12 +39,12 @@
   <div class="form-row">
     <label for="node-input-selector">Selector</label>
     <input id="node-input-selector"></input>
-    <input type="hidden" id="node-input-selector-type"></input>
+    <input type="hidden" id="node-input-selectortype"></input>
   </div>
   <div class="form-row">
     <label for="node-input-value">Value</label>
     <input id="node-input-value"></input>
-    <input type="hidden" id="node-input-value-type"></input>
+    <input type="hidden" id="node-input-valuetype"></input>
   </div>
 </script>
 

@@ -6,6 +6,9 @@ module.exports = function (RED) {
     
     // Retrieve the config node
     this.on('input', function (msg) {
+      node.url = config.urltype=="msg"?msg[node.url]:node.url
+      node.url = config.urltype=="flow"?flowContext.get(node.url):node.url
+      node.url = config.urltype=="global"?globalContext.get(node.url):node.url
       msg.puppeteer.page.goto(node.url)
         .then((page) => {
           node.send(msg) 

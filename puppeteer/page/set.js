@@ -8,6 +8,12 @@ module.exports = function (RED) {
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
+        node.selector = config.selectortype=="msg"?msg[node.selector]:node.selector
+        node.selector = config.selectortype=="flow"?flowContext.get(node.selector):node.selector
+        node.selector = config.selectortype=="global"?globalContext.get(node.selector):node.selector
+        node.value = config.valuetype=="msg"?msg[node.value]:node.value
+        node.value = config.valuetype=="flow"?flowContext.get(node.value):node.value
+        node.value = config.valuetype=="global"?globalContext.get(node.value):node.value
         await msg.puppeteer.page.waitForSelector(node.selector)
         await msg.puppeteer.page.$eval(node.selector, (el,value) => el.value = value, node.value)
         node.send(msg) 

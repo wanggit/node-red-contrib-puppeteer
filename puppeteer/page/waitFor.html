@@ -4,7 +4,8 @@
       color: '#8BBDD9',
       defaults: {
         name: { value: '' },
-        selector:  { value: '', required: true }
+        selector:  { value: '', required: true },
+        selectortype: {value:'str'}
       },
       inputs:1,
       outputs:1,
@@ -17,7 +18,7 @@
         $("#node-input-selector").typedInput({
           type:"str",
           types:["str","msg","flow","global"],
-          typeField: "#node-input-selector-type"
+          typeField: "#node-input-selectortype"
         })
       }
     });
@@ -27,7 +28,7 @@
   <div class="form-row">
     <label for="node-input-selector">selector</label>
     <input id="node-input-selector"></input>
-    <input type="hidden" id="node-input-selector-type"></input>
+    <input type="hidden" id="node-input-selectortype"></input>
   </div>
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>

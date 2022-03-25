@@ -7,6 +7,9 @@ module.exports = function (RED) {
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
+        node.selector = config.selectortype=="msg"?msg[node.selector]:node.selector
+        node.selector = config.selectortype=="flow"?flowContext.get(node.selector):node.selector
+        node.selector = config.selectortype=="global"?globalContext.get(node.selector):node.selector
       await msg.puppeteer.page.waitForSelector(node.selector)
       await msg.puppeteer.page.click(node.selector)
       node.send(msg) 
