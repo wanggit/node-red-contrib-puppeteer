@@ -11,12 +11,16 @@ module.exports = function (RED) {
 
     // Retrieve the config node
     this.on('input', async function (msg) {
-      msg.puppeteer = {
-        browser:await puppeteer.launch( { headless: node.headless, slowMo: node.slowMo, defaultViewport: null, ignoreHTTPSErrors: true } )
-      }
-      msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
-      node.send(msg)
-        
+      try {
+        this.status({fill:"green",shape:"dot",text:"Launching..."});
+        msg.puppeteer = {browser:await puppeteer.launch( { headless: node.headless, slowMo: node.slowMo, defaultViewport: null, ignoreHTTPSErrors: true } )}
+        msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
+        this.status({fill:"green",shape:"ring",text:"Launched"});
+        node.send(msg)
+      } catch (e) {
+        this.status({fill:"red",shape:"ring",text:e});
+        node.error(e)
+      } 
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-headless").val(this.headless === true ? "1" : "0")

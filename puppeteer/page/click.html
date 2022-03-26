@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-click', {
       category: 'puppeteerpage',
-      color: '#8BBDD9',
+      color: '#fe6d73',
       defaults: {
         name: { value: '' },
         selector:  { value: '', required: true },
@@ -11,7 +11,7 @@
       outputs:1,
       icon: "pointer.svg",
       label: function() {
-          return this.name || "click : "+ this.selector;
+          return this.name || this.selector;
       },
       paletteLabel: "click",
       oneditprepare: function() {

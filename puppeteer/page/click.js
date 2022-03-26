@@ -10,11 +10,15 @@ module.exports = function (RED) {
         node.selector = config.selectortype=="msg"?msg[node.selector]:node.selector
         node.selector = config.selectortype=="flow"?flowContext.get(node.selector):node.selector
         node.selector = config.selectortype=="global"?globalContext.get(node.selector):node.selector
-      await msg.puppeteer.page.waitForSelector(node.selector)
-      await msg.puppeteer.page.click(node.selector)
-      node.send(msg) 
-      } catch(err) {
-          node.error(err)
+        this.status({fill:"green",shape:"dot",text:`Wait for ${node.selector}`});
+        await msg.puppeteer.page.waitForSelector(node.selector)
+        this.status({fill:"green",shape:"dot",text:`Click ${node.selector}`});
+        await msg.puppeteer.page.click(node.selector)
+        this.status({fill:"green",shape:"ring",text:`Click ${node.selector}`});
+        node.send(msg) 
+      } catch(e) {
+          this.status({fill:"red",shape:"ring",text:e});
+          node.error(e)
       }
     })
     oneditprepare: function oneditprepare() {

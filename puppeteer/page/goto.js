@@ -5,17 +5,19 @@ module.exports = function (RED) {
     var node = this
     
     // Retrieve the config node
-    this.on('input', function (msg) {
-      node.url = config.urltype=="msg"?msg[node.url]:node.url
-      node.url = config.urltype=="flow"?flowContext.get(node.url):node.url
-      node.url = config.urltype=="global"?globalContext.get(node.url):node.url
-      msg.puppeteer.page.goto(node.url)
-        .then((page) => {
-          node.send(msg) 
-        })  
-        .catch((err) => {
-          node.error(err)
-        })
+    this.on('input', async function (msg) {
+      try {
+        node.url = config.urltype=="msg"?msg[node.url]:node.url
+        node.url = config.urltype=="flow"?flowContext.get(node.url):node.url
+        node.url = config.urltype=="global"?globalContext.get(node.url):node.url
+        this.status({fill:"green",shape:"dot",text:`Go to ${node.url}`});
+        await msg.puppeteer.page.goto(node.url)
+        this.status({fill:"green",shape:"ring",text:node.url});
+        node.send(msg)
+      } catch (e) {
+        this.status({fill:"red",shape:"ring",text:e});
+        node.error(e)
+      }
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
