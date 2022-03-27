@@ -8,11 +8,16 @@ module.exports = function (RED) {
     var node = this
 
     // Retrieve the config node
-    this.on('input', function (msg) {
-      msg.puppeteer.browser.close()
-        .then(() => {
-          node.send(msg)
-        })
+    this.on('input', async function (msg) {
+      try {
+        this.status({fill:"green",shape:"dot",text:`Closing browser...`});
+        await msg.puppeteer.browser.close()
+        this.status({fill:"green",shape:"ring",text:`Browser closed`});
+        node.send(msg)
+      } catch (e) {
+        this.status({fill:"red",shape:"ring",text:e});
+        node.error(e)
+      }
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)

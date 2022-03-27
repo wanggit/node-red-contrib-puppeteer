@@ -1,17 +1,17 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-close', {
-      category: 'puppeteerpage',
+      category: 'Puppeteer',
       color: '#ffd166',
       defaults: {
         name: { value: '' }
       },
       inputs:1,
       outputs:1,
-      icon: "fa-file-code-o.png",
+      icon: "closetab.svg",
       label: function() {
-          return this.name || "close";
+          return this.name || "Close Tab";
       },
-      paletteLabel: "close"
+      paletteLabel: "Close Tab"
     });
 </script>
 
