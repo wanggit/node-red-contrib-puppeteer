@@ -1,23 +1,25 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-keyboard-type', {
-      category: 'puppeteerpagekeyboard',
+      category: 'Puppeteer',
       color: '#fe6d73',
       defaults: {
         name: { value: '' },
-        text:  { value: '', required: true }
+        text:  { value: '', required: true },
+        texttype: {value:'str'}
       },
       inputs:1,
       outputs:1,
       icon: "fa-keyboard-o.png",
       label: function() {
-          return this.name || "type";
+          let label = this.name==""?this.texttype != "str"?this.texttype+"."+this.text:this.text:this.name
+          return label || "Typing"
       },
-      paletteLabel: "type",
+      paletteLabel: "Typing",
       oneditprepare: function() {
         $("#node-input-text").typedInput({
           type:"str",
           types:["str","msg","flow","global"],
-          typeField: "#node-input-text-type"
+          typeField: "#node-input-texttype"
         })
       }
     });
@@ -27,7 +29,7 @@
   <div class="form-row">
     <label for="node-input-text">text</label>
     <input id="node-input-text"></input>
-    <input type="hidden" id="node-input-text-type"></input>
+    <input type="hidden" id="node-input-texttype"></input>
   </div>
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>

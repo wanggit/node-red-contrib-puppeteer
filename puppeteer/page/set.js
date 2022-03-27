@@ -16,9 +16,9 @@ module.exports = function (RED) {
         node.value = config.valuetype=="global"?globalContext.get(node.value):node.value
         this.status({fill:"green",shape:"dot",text:`Wait for ${node.selector}`});
         await msg.puppeteer.page.waitForSelector(node.selector)
-        this.status({fill:"green",shape:"dot",text:`Set ${node.value}`});
+        this.status({fill:"green",shape:"dot",text:`Setting ${node.selector}:${node.value}`});
         await msg.puppeteer.page.$eval(node.selector, (el,value) => el.value = value, node.value)
-        this.status({fill:"green",shape:"ring",text:node.value});
+        this.status({fill:"green",shape:"ring",text:`${node.selector}:${node.value}`});
         node.send(msg) 
       } catch(e) {
         this.status({fill:"red",shape:"ring",text:e});

@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-set-value', {
-      category: 'puppeteer experminal',
+      category: 'Puppeteer',
       color: '#fe6d73',
       defaults: {
         name: { value: '' },
@@ -13,7 +13,10 @@
       outputs:1,
       icon: "set.svg",
       label: function() {
-          return this.name || this.selector + ":" + this.value;
+          let selector = this.selectortype != "str"?this.selectortype+"."+this.selector:this.selector.replace(/.*[> ]/,"")
+          let value = this.valuetype != "str"?this.valuetype+"."+this.value:this.value.replace(/.*[> ]/,"")
+          let label = this.name || selector+":"+value
+          return label==":"?"Set Value":label
       },
       paletteLabel: "Set Value",
       oneditprepare: function() {

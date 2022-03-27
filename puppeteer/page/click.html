@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-click', {
-      category: 'puppeteerpage',
+      category: 'Puppeteer',
       color: '#fe6d73',
       defaults: {
         name: { value: '' },
@@ -11,9 +11,10 @@
       outputs:1,
       icon: "pointer.svg",
       label: function() {
-          return this.name || this.selector;
+        let label = this.name==""?this.selectortype != "str"?this.selectortype+"."+this.selector:this.selector.replace(/.*[> ]/,""):this.name
+        return label || "Click"
       },
-      paletteLabel: "click",
+      paletteLabel: "Click",
       oneditprepare: function() {
         $("#node-input-selector").typedInput({
           type:"str",

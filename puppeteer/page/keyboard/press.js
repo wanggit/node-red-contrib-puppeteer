@@ -5,11 +5,16 @@ module.exports = function (RED) {
     var node = this
     
     // Retrieve the config node
-    this.on('input', function (msg) {
-      msg.puppeteer.page.keyboard.press(node.key)
-        .then(() => {
-          node.send(msg) 
-        })  
+    this.on('input', async function (msg) {
+      try {
+        this.status({fill:"green",shape:"dot",text:`Pressing Key ${node.key}`});
+        await msg.puppeteer.page.keyboard.press(node.key)
+        this.status({fill:"green",shape:"ring",text:`Pressed Key ${node.key}`});
+        node.send(msg)
+      } catch (e) {
+        this.status({fill:"red",shape:"ring",text:e});
+        node.error(e)
+      }
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)

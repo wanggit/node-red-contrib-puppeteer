@@ -1,18 +1,18 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-keyboard-press', {
-      category: 'puppeteerpagekeyboard',
+      category: 'Puppeteer',
       color: '#fe6d73',
       defaults: {
         name: { value: '' },
-        key:  { value: '', required: true }
+        key:  { value: '0', required: true }
       },
       inputs:1,
       outputs:1,
-      icon: "fa-keyboard-o.png",
+      icon: "key.svg",
       label: function() {
-          return this.name || "press";
+          return this.name == "" ? "Press Key "+ this.key:this.name
       },
-      paletteLabel: "press"
+      paletteLabel: "Press Key"
     });
 </script>
 
