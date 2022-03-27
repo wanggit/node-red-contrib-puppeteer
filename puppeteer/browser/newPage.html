@@ -1,17 +1,17 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-browser-newPage', {
-      category: 'puppeteerbrowser',
+      category: 'Puppeteer',
       color: '#ffd166',
       defaults: {
         name: {value: ''},
       },
       inputs:1,
       outputs:1,
-      icon: "chrome.svg",
+      icon: "newtab.svg",
       label: function() {
-          return this.name || "newPage";
+          return this.name || "New Tab";
       },
-      paletteLabel: "newPage"
+      paletteLabel: "New Tab"
     });
 </script>
 

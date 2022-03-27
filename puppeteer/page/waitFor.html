@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-waitFor', {
-      category: 'puppeteerpage',
+      category: 'Puppeteer',
       color: '#06d6a0',
       defaults: {
         name: { value: '' },
@@ -9,11 +9,12 @@
       },
       inputs:1,
       outputs:1,
-      icon: "fa-file-code-o.png",
+      icon: "wait.svg",
       label: function() {
-          return this.name || "waitFor";
+        let label = this.name==""?this.selectortype != "str"?this.selectortype+"."+this.selector:this.selector.replace(/.*[> ]/,""):this.name
+        return label || "Wait"
       },
-      paletteLabel: "waitFor",
+      paletteLabel: "Wait",
       oneditprepare: function() {
         $("#node-input-selector").typedInput({
           type:"str",

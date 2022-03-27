@@ -4,7 +4,11 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
-## March 26, 2002
+## March 27, 2022
+* Update status
+* Update Icon
+
+## March 26, 2022
 
 ### Update
 * Add status

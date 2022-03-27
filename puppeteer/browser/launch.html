@@ -1,19 +1,19 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-browser-launch', {
-      category: 'puppeteerbrowser',
+      category: 'Puppeteer',
       color: '#ffd166',
       defaults: {
         name: { value: ''},
-        headless: { value: true, require: true },
+        headless: { value: 0, require: true },
         slowMo: { value: undefined }
       },
       inputs:1,
       outputs:1,
       icon: "chrome.svg",
       label: function() {
-          return this.name || "launch";
+          return this.name || "Launch";
       },
-      paletteLabel: "launch"
+      paletteLabel: "Launch"
     });
 </script>
 

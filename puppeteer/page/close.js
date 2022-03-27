@@ -4,11 +4,17 @@ module.exports = function (RED) {
     var node = this
     
     // Retrieve the config node
-    this.on('input', function (msg) {
-      msg.puppeteer.page.close()
-        .then((page) => {
-          node.send(msg) 
-        })  
+    this.on('input', async function (msg) {
+      try {
+        this.status({fill:"green",shape:"dot",text:`Closing Tab...`});
+        await msg.puppeteer.page.close()
+        msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
+        this.status({fill:"green",shape:"ring",text:`Tab closed`});
+        node.send(msg)
+      } catch (e) {
+        this.status({fill:"red",shape:"ring",text:e});
+        node.error(e)
+      }
     })
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)

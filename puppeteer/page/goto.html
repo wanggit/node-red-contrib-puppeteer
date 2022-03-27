@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-goto', {
-      category: 'puppeteerpage',
+      category: 'Puppeteer',
       color: '#ffd166',
       defaults: {
         name: { value: '' },
@@ -11,9 +11,10 @@
       outputs:1,
       icon: "url.svg",
       label: function() {
-          return this.name || this.url;
+          let label = this.name==""?this.urltype != "str"?this.urltype+"."+this.url:this.url:this.name
+          return label || "URL"
       },
-      paletteLabel: "goto",
+      paletteLabel: "URL",
       oneditprepare: function() {
         $("#node-input-url").typedInput({
           default:'str',
