@@ -22,6 +22,9 @@ module.exports = function (RED) {
       }
     }
     )
+    this.on('close', function() {
+      this.status({});
+    });
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
     }

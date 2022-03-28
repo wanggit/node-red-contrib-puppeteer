@@ -22,6 +22,9 @@ module.exports = function (RED) {
         node.error(e)
       } 
     })
+    this.on('close', function() {
+      this.status({});
+    });
     oneditprepare: function oneditprepare() {
       $("#node-input-headless").val(this.headless === true ? "1" : "0")
       $("#node-input-slowMo").val(this.slowMo)

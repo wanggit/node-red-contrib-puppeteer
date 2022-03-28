@@ -15,5 +15,8 @@ module.exports = function (RED) {
       $("#node-input-name").val(this.name)
     }
   }
+  this.on('close', function() {
+    this.status({});
+  });
   RED.nodes.registerType('puppeteer-page-content', PuppeteerPageContent)
 }

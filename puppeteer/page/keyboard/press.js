@@ -16,6 +16,9 @@ module.exports = function (RED) {
         node.error(e)
       }
     })
+    this.on('close', function() {
+      this.status({});
+    });
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
       $("#node-input-key").val(this.key)

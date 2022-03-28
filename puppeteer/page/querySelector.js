@@ -23,6 +23,9 @@ module.exports = function (RED) {
         node.send(msg)
       })
     })
+    this.on('close', function() {
+      this.status({});
+    });
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
       $("#node-input-selector").val(this.selector)
