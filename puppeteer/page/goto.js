@@ -5,6 +5,7 @@ module.exports = function (RED) {
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
+        console.log(msg[config.url])
         let url = config.url
         url = config.urltype=="msg"?msg[config.url]:url
         url = config.urltype=="flow"?flowContext.get(config.url):url
