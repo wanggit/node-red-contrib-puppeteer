@@ -1,7 +1,6 @@
 module.exports = function (RED) {
   function PuppeteerPageClose (config) {
     RED.nodes.createNode(this, config)
-    var node = this
     
     // Retrieve the config node
     this.on('input', async function (msg) {
@@ -10,10 +9,10 @@ module.exports = function (RED) {
         await msg.puppeteer.page.close()
         msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
         this.status({fill:"green",shape:"ring",text:`Tab closed`});
-        node.send(msg)
+        this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
-        node.error(e)
+        this.error(e)
       }
     })
     this.on('close', function() {

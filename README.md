@@ -8,6 +8,9 @@ Pickup update from node-red-contrib-puppeteer
 ### Features
 * Screenshot with preview
 
+### Fix
+* Status bug
+
 ## March 27, 2022
 
 ### Update
