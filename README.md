@@ -4,7 +4,13 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
+## March 28, 2022
+### Features
+* Screenshot with preview
+
 ## March 27, 2022
+
+### Update
 * Update status
 * Update Icon
 

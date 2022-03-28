@@ -1,18 +1,26 @@
 <script type="text/javascript">
     RED.nodes.registerType('puppeteer-page-screenshot', {
-      category: 'puppeteerpage',
+      category: 'Puppeteer',
       color: '#118ab2',
       defaults: {
         name: { value: '' }
       },
       inputs:1,
       outputs:1,
-      icon: "fa-file-code-o.png",
+      icon: "screenshot.svg",
       label: function() {
-          return this.name || "screenshot";
+          return this.name || "Screenshot";
       },
-      paletteLabel: "screenshot"
+      paletteLabel: "Screenshot"
     });
+  
+    RED.comms.subscribe('puppeteer-screenshot', function(event, obj) {
+      $("puppeteer-screenshot-"+obj.id)?.remove()
+      const container = document.getElementById(obj.id)
+      const img = document.createElementNS("http://www.w3.org/2000/svg", 'image')
+      $(img).attr("id","puppeteer-screenshot-"+obj.id).attr('y', '45').attr('width', 160).attr('href', "data:image/png;base64,"+obj.image)
+      container.insertBefore(img, container.lastChild.nextSibling)
+    })
 </script>
 
 <script type="text/x-red" data-template-name="puppeteer-page-screenshot">
