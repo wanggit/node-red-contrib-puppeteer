@@ -1,22 +1,21 @@
 module.exports = function (RED) {
   function PuppeteerPageKeyboardType (config) {
     RED.nodes.createNode(this, config)
-    this.text = config.text
-    var node = this
     
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
-        node.text = config.text=="msg"?msg[node.text]:node.text
-        node.text = config.text=="flow"?flowContext.get(node.text):node.text
-        node.text = config.text=="global"?globalContext.get(node.text):node.text
-        this.status({fill:"green",shape:"dot",text:`Typing ${node.text}`});
-        await msg.puppeteer.page.keyboard.type(node.text)
-        this.status({fill:"green",shape:"ring",text:`Typed ${node.text}`});
-        node.send(msg)
+        let text = config.text
+        text = config.texttype=="msg"?msg[config.text]:text
+        text = config.texttype=="flow"?flowContext.get(config.text):text
+        text = config.texttype=="global"?globalContext.get(config.text):text
+        this.status({fill:"green",shape:"dot",text:`Typing ${text}`});
+        await msg.puppeteer.page.keyboard.type(text)
+        this.status({fill:"green",shape:"ring",text:`Typed ${text}`});
+        this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
-        node.error(e)
+        this.error(e)
       }
     })
     this.on('close', function() {

@@ -1,21 +1,20 @@
 module.exports = function (RED) {
   function PuppeteerPageWaitFor (config) {
     RED.nodes.createNode(this, config)
-    this.selector = config.selector
-    var node = this
     
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
-        node.selector = config.selectortype=="msg"?msg[node.selector]:node.selector
-        node.selector = config.selectortype=="flow"?flowContext.get(node.selector):node.selector
-        node.selector = config.selectortype=="global"?globalContext.get(node.selector):node.selector
-        this.status({fill:"green",shape:"dot",text:`Wait for ${node.selector}`});
-        await msg.puppeteer.page.waitForSelector(node.selector)
-        node.send(msg) 
+        let selector = config.selector
+        selector = config.selectortype=="msg"?msg[config.selector]:selector
+        selector = config.selectortype=="flow"?flowContext.get(config.selector):selector
+        selector = config.selectortype=="global"?globalContext.get(config.selector):selector
+        this.status({fill:"green",shape:"dot",text:`Wait for ${selector}`});
+        await msg.puppeteer.page.waitForSelector(selector)
+        this.send(msg) 
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
-        node.error(e)
+        this.error(e)
       }
     })
     this.on('close', function() {
