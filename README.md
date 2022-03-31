@@ -4,6 +4,10 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
+## March 31, 2022
+### Features
+* Added upload node
+
 ## March 28, 2022
 ### Features
 * Screenshot with preview
