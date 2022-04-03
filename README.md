@@ -4,6 +4,11 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
+## April 3, 2022
+### Features
+* Added launch options
+* Added click options
+
 ## March 31, 2022
 ### Features
 * Added upload node

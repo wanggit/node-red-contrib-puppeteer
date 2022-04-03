@@ -1,7 +1,9 @@
 module.exports = function (RED) {
   function PuppeteerPageClick (config) {
     RED.nodes.createNode(this, config)
-    
+    config.button = config.button == ""?"left":config.button    
+    config.delay = config.delay == ""?0:config.delay    
+    config.clickcount = config.clickcount == ""?1:config.clickcount    
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
@@ -12,7 +14,7 @@ module.exports = function (RED) {
         this.status({fill:"green",shape:"dot",text:`Wait for ${selector}`});
         await msg.puppeteer.page.waitForSelector(selector)
         this.status({fill:"green",shape:"dot",text:`Click ${selector}`});
-        await msg.puppeteer.page.click(selector)
+        await msg.puppeteer.page.click(selector,{delay:config.delay,clickCount:config.clickcount,button:config.button})
         this.status({fill:"green",shape:"ring",text:`Click ${selector}`});
         this.send(msg) 
       } catch(e) {
@@ -24,7 +26,10 @@ module.exports = function (RED) {
       this.status({});
     });
     oneditprepare: function oneditprepare() {
-      $("#node-input-name").val(this.name)
+      $("#node-input-clickcount").val(config.clickcount)
+      $("#node-input-delay").val(config.delay)
+      $("#node-input-button").val(config.button)
+      $("#node-input-name").val(config.name)
     }
   }
   RED.nodes.registerType('puppeteer-page-click', PuppeteerPageClick)

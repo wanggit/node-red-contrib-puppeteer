@@ -11,6 +11,7 @@ module.exports = function (RED) {
         selector = config.selectortype=="global"?globalContext.get(config.selector):selector
         this.status({fill:"green",shape:"dot",text:`Wait for ${selector}`});
         await msg.puppeteer.page.waitForSelector(selector)
+        this.status({fill:"green",shape:"ring",text:`${selector} exists`});
         this.send(msg) 
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
