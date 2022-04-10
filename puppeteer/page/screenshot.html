@@ -3,7 +3,8 @@
       category: 'Puppeteer',
       color: '#118ab2',
       defaults: {
-        name: { value: '' }
+        name: { value: '' },
+        fullpage: {falue: false}
       },
       inputs:1,
       outputs:1,
@@ -24,6 +25,10 @@
 </script>
 
 <script type="text/x-red" data-template-name="puppeteer-page-screenshot">
+    <div class="form-row">
+        <label for="node-input-fullpage" style="width: auto !important; padding-right:10px"><i class="fa fa-arrows-alt"></i> Capture Full Page</label>
+        <input type="checkbox" id="node-input-fullpage" style="margin-top: 0; display:inline-block; width:auto;" />
+    </div>
   <div class="form-row">
       <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
       <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
@@ -31,4 +36,17 @@
 </script>
 
 <script type="text/x-red" data-help-name="puppeteer-page-screenshot">
+    <p>Capture Screen</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>Capture Full Page<span class="property-type">boolean</span></dt>
+        <dd>When true, takes a screenshot of the full scrollable page. Defaults to <code>false</code>.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>msg.payload<span class="property-type">Buffer</span></dt>
+        <dd>buffer with captured screenshot.</dd>
+    </dl>
+    <h3>Details</h3>
+        <p>Browser screenshot, require focus / active to browser</p>
 </script>

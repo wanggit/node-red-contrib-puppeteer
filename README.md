@@ -4,6 +4,10 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
+## April 10, 2022
+### Features
+* Added goto, screenshot options
+
 ## April 3, 2022
 ### Features
 * Added launch options

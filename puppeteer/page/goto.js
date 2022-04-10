@@ -10,7 +10,7 @@ module.exports = function (RED) {
         url = config.urltype=="flow"?flowContext.get(config.url):url
         url = config.urltype=="global"?globalContext.get(config.url):url
         this.status({fill:"green",shape:"dot",text:`Go to ${url}`});
-        await msg.puppeteer.page.goto(url)
+        await msg.puppeteer.page.goto(url,{timeout:config.timeout})
         this.status({fill:"green",shape:"ring",text:url});
         this.send(msg)
       } catch (e) {

@@ -1,12 +1,12 @@
 module.exports = function (RED) {
   function PuppeteerPageScreenshot (config) {
     RED.nodes.createNode(this, config)
-    
+
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
         this.status({fill:"green",shape:"dot",text:`Capturing screen ...`});
-        msg.payload = await msg.puppeteer.page.screenshot()
+        msg.payload = await msg.puppeteer.page.screenshot({fullPage:config.fullpage})
         this.status({fill:"green",shape:"ring",text:`Screen captured`});
         RED.comms.publish("puppeteer-screenshot", { id:this.id, image:msg.payload.toString("base64") });
         this.send(msg)
