@@ -1,72 +1,48 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require('puppeteer')
+
 
 module.exports = function (RED) {
-  function PuppeteerBrowserLaunch(config) {
-    RED.nodes.createNode(this, config);
-    config.timeout = config.timeout == "" ? 0 : config.timeout;
-    config.slowMo = config.slowMo == "" ? 0 : config.slowMo;
-    config.debugport = config.debugport == "" ? 0 : config.debugport;
+  function PuppeteerBrowserLaunch (config) {
+    RED.nodes.createNode(this, config)
+    config.timeout = config.timeout == ""?0:config.timeout
+    config.slowMo = config.slowMo == ""?0:config.slowMo
+    config.debugport = config.debugport == ""?0:config.debugport
     // Retrieve the config node
-    this.on("input", async function (msg) {
+    this.on('input', async function (msg) {
       try {
-        this.status({ fill: "green", shape: "dot", text: "Launching..." });
-        if (config.debugport != 0) {
+        this.status({fill:"green",shape:"dot",text:"Launching..."});
+        if (config.debugport!=0) {
           try {
-            msg.puppeteer = {
-              browser: await puppeteer.connect({
-                browserURL: `http://127.0.0.1:${config.debugport}`,
-              }),
-            };
+            msg.puppeteer = {browser:await puppeteer.connect({timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, browserURL:`http://127.0.0.1:${config.debugport}`})}
+            this.status({fill:"green",shape:"ring",text:"Attached to existing browser"});
           } catch (e) {
-            this.status({
-              fill: "green",
-              shape: "dot",
-              text: "No existing browser detected...",
-            });
-            msg.puppeteer = {
-              browser: await puppeteer.launch({
-                timeout: config.timeout,
-                slowMo: config.slowMo,
-                headless: config.headless,
-                devtools: config.devtools,
-                defaultViewport: null,
-                ignoreHTTPSErrors: true,
-                args: [`--remote-debugging-port=${config.debugport}`],
-              }),
-            };
+            this.status({fill:"green",shape:"dot",text:"No existing browser detected..."});
+            msg.puppeteer = {browser:await puppeteer.launch( { timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, args: [`--remote-debugging-port=${config.debugport}`] } )}
+            this.status({fill:"green",shape:"ring",text:"Launched"});
           }
         }
-        if (msg.puppeteer == undefined)
-          msg.puppeteer = {
-            browser: await puppeteer.launch({
-              timeout: config.timeout,
-              slowMo: config.slowMo,
-              headless: config.headless,
-              devtools: config.devtools,
-              defaultViewport: null,
-              ignoreHTTPSErrors: true,
-              args: [`--remote-debugging-port=${config.debugport}`],
-            }),
-          };
-        msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0];
-        this.status({ fill: "green", shape: "ring", text: "Launched" });
-        this.send(msg);
+        if (msg.puppeteer==undefined) {
+          msg.puppeteer = {browser:await puppeteer.launch( { timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, args: [`--remote-debugging-port=${config.debugport}`] } )}
+          this.status({fill:"green",shape:"ring",text:"Launched"});
+        }
+        msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
+        this.send(msg)
       } catch (e) {
-        this.status({ fill: "red", shape: "ring", text: e });
-        this.error(e);
-      }
-    });
-    this.on("close", function () {
+        this.status({fill:"red",shape:"ring",text:e});
+        this.error(e)
+      } 
+    })
+    this.on('close', function() {
       this.status({});
     });
     oneditprepare: function oneditprepare() {
-      $("#node-input-timeout").val(config.timeout);
-      $("#node-input-slowMo").val(config.slowMo);
-      $("#node-input-headless").val(config.headless);
-      $("#node-input-debugport").val(config.debugport);
-      $("#node-input-devtools").val(config.devtools);
-      $("#node-input-name").val(config.name);
+      $("#node-input-timeout").val(config.timeout)
+      $("#node-input-slowMo").val(config.slowMo)
+      $("#node-input-headless").val(config.headless)
+      $("#node-input-debugport").val(config.debugport)
+      $("#node-input-devtools").val(config.devtools)
+      $("#node-input-name").val(config.name)
     }
   }
-  RED.nodes.registerType("puppeteer-browser-launch", PuppeteerBrowserLaunch);
-};
+  RED.nodes.registerType('puppeteer-browser-launch', PuppeteerBrowserLaunch)
+}

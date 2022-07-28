@@ -1,5 +1,5 @@
 module.exports = function (RED) {
-  function PuppeteerPageSetValue (config) {
+  function PuppeteerPageGetValue (config) {
     RED.nodes.createNode(this, config)
     
     // Retrieve the config node
@@ -9,21 +9,21 @@ module.exports = function (RED) {
         selector = config.selectortype=="msg"?msg[config.selector]:selector
         selector = config.selectortype=="flow"?flowContext.get(config.selector):selector
         selector = config.selectortype=="global"?globalContext.get(config.selector):selector
-        let value = config.value
-        value = config.valuetype=="msg"?msg[config.value]:value
-        value = config.valuetype=="flow"?flowContext.get(config.value):value
-        value = config.valuetype=="global"?globalContext.get(config.value):value
+        let property = config.property
+        property = config.propertytype=="msg"?msg[config.property]:property
+        property = config.propertytype=="flow"?flowContext.get(config.property):property
+        property = config.propertytype=="global"?globalContext.get(config.property):property
         this.status({fill:"green",shape:"dot",text:`Wait for ${selector}`});
         await msg.puppeteer.page.waitForSelector(selector)
-        this.status({fill:"green",shape:"dot",text:`Setting ${selector}:${value}`});
-        while ((await msg.puppeteer.page.$eval(selector, el => el.value))!=value) {
-          await msg.puppeteer.page.$eval(selector, (el,value) => el.value = value, value)
-        }
-        this.status({fill:"green",shape:"ring",text:`${selector}:${value}`});
+        this.status({fill:"green",shape:"dot",text:`Getting ${selector}`});
+        const value =  await msg.puppeteer.page.$eval(selector, (el,property) => el[property], property);
+        this.status({fill:"green",shape:"ring",text:`${value}`});
+        msg.payload = value
         this.send(msg) 
       } catch(e) {
         this.status({fill:"red",shape:"ring",text:e});
-        this.error(e)
+        msg.payload = undefined
+        this.send(msg) 
       }
     })
     this.on('close', function() {
@@ -33,5 +33,5 @@ module.exports = function (RED) {
       $("#node-input-name").val(this.name)
     }
   }
-  RED.nodes.registerType('puppeteer-page-set-value', PuppeteerPageSetValue)
+  RED.nodes.registerType('puppeteer-page-get-value', PuppeteerPageGetValue)
 }

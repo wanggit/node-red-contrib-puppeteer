@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-puppeteer-new",
-  "version": "0.3.3",
+  "version": "0.3.1",
   "description": "NodeRED nodes to control a headless chrome with puppeteer",
   "main": "index.js",
   "scripts": {},
@@ -36,7 +36,7 @@
       "puppeteer-page-close": "puppeteer/page/close.js",
       "puppeteer-page-keyboard-type": "puppeteer/page/keyboard/type.js",
       "puppeteer-page-keyboard-press": "puppeteer/page/keyboard/press.js",
-      "puppeteer-page-querySelector": "puppeteer/page/querySelector.js",
+      "puppeteer-page-get-value": "puppeteer/page/get.js",
       "puppeteer-page-set-value": "puppeteer/page/set.js",
       "puppeteer-page-upload": "puppeteer/page/upload.js"
     }

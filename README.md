@@ -4,14 +4,6 @@ Pickup update from node-red-contrib-puppeteer
 
 ## Documentation
 
-## July 27, 2022
-### Features
-* attach to existing browser if specify debug port
-
-## April 10, 2022
-### Features
-* Added goto, screenshot options
-
 ## April 3, 2022
 ### Features
 * Added launch options
