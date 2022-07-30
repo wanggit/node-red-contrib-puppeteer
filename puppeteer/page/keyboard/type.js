@@ -11,7 +11,7 @@ module.exports = function (RED) {
         text = config.texttype=="global"?globalContext.get(config.text):text
         this.status({fill:"green",shape:"dot",text:`Typing ${text}`});
         await msg.puppeteer.page.keyboard.type(text)
-        this.status({fill:"green",shape:"ring",text:`Typed ${text}`});
+        this.status({fill:"grey",shape:"ring",text:`Typed ${text}`});
         this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});

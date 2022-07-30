@@ -12,7 +12,7 @@ module.exports = function (RED) {
       try {
         this.status({fill:"green",shape:"dot",text:`Closing browser...`});
         await msg.puppeteer.browser.close()
-        this.status({fill:"green",shape:"ring",text:`Browser closed`});
+        this.status({fill:"grey",shape:"ring",text:`Browser closed`});
         node.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});

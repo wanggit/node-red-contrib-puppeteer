@@ -8,7 +8,7 @@ module.exports = function (RED) {
         this.status({fill:"green",shape:"dot",text:`Closing Tab...`});
         await msg.puppeteer.page.close()
         msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
-        this.status({fill:"green",shape:"ring",text:`Tab closed`});
+        this.status({fill:"grey",shape:"ring",text:`Tab closed`});
         this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});

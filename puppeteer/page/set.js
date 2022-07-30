@@ -19,7 +19,7 @@ module.exports = function (RED) {
         while ((await msg.puppeteer.page.$eval(selector, el => el.value))!=value) {
           await msg.puppeteer.page.$eval(selector, (el,value) => el.value = value, value)
         }
-        this.status({fill:"green",shape:"ring",text:`${selector}:${value}`});
+        this.status({fill:"grey",shape:"ring",text:`${selector}:${value}`});
         this.send(msg) 
       } catch(e) {
         this.status({fill:"red",shape:"ring",text:e});

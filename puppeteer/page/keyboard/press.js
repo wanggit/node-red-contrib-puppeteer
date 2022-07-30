@@ -7,7 +7,7 @@ module.exports = function (RED) {
       try {
         this.status({fill:"green",shape:"dot",text:`Pressing Key ${config.key}`});
         await msg.puppeteer.page.keyboard.press(config.key)
-        this.status({fill:"green",shape:"ring",text:`Pressed Key ${config.key}`});
+        this.status({fill:"grey",shape:"ring",text:`Pressed Key ${config.key}`});
         this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});

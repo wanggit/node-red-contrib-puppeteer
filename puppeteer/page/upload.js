@@ -19,7 +19,7 @@ module.exports = function (RED) {
         await msg.puppeteer.page.waitForSelector(selector)
         this.status({fill:"green",shape:"dot",text:`Upload ${file}`});
         await (await msg.puppeteer.page.$(selector)).uploadFile(file)
-        this.status({fill:"green",shape:"ring",text:`Uploaded ${file}`});
+        this.status({fill:"grey",shape:"ring",text:`Uploaded ${file}`});
         this.send(msg) 
       } catch(e) {
           this.status({fill:"red",shape:"ring",text:e});

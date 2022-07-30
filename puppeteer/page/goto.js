@@ -5,13 +5,10 @@ module.exports = function (RED) {
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
-        let url = config.url
-        url = config.urltype=="msg"?msg[config.url]:url
-        url = config.urltype=="flow"?flowContext.get(config.url):url
-        url = config.urltype=="global"?globalContext.get(config.url):url
+        let url = config.urltype!="str"?eval(config.urltype+"."+config.url):config.url
         this.status({fill:"green",shape:"dot",text:`Go to ${url}`});
-        await msg.puppeteer.page.goto(url,{waitUntil: "networkidle2"})
-        this.status({fill:"green",shape:"ring",text:url});
+        await msg.puppeteer.page.goto(url,config)
+        this.status({fill:"grey",shape:"ring",text:url});
         this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
@@ -23,6 +20,7 @@ module.exports = function (RED) {
     });
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
+      $("#node-input-waitUntil").val(this.waitUntil)
     }
   }
   RED.nodes.registerType('puppeteer-page-goto', PuppeteerPageGoto)

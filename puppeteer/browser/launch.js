@@ -4,26 +4,25 @@ const puppeteer = require('puppeteer')
 module.exports = function (RED) {
   function PuppeteerBrowserLaunch (config) {
     RED.nodes.createNode(this, config)
-    config.timeout = config.timeout == ""?0:config.timeout
-    config.slowMo = config.slowMo == ""?0:config.slowMo
-    config.debugport = config.debugport == ""?0:config.debugport
+    config.defaultViewport = null;
+    config.ignoreHTTPSErrors = true;
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
         this.status({fill:"green",shape:"dot",text:"Launching..."});
         if (config.debugport!=0) {
           try {
-            msg.puppeteer = {browser:await puppeteer.connect({timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, browserURL:`http://127.0.0.1:${config.debugport}`})}
-            this.status({fill:"green",shape:"ring",text:"Attached to existing browser"});
+            msg.puppeteer = {browser:await puppeteer.connect({...config,browserURL:`http://127.0.0.1:${config.debugport}`})}
+            this.status({fill:"grey",shape:"ring",text:"Attached to existing browser"});
           } catch (e) {
             this.status({fill:"green",shape:"dot",text:"No existing browser detected..."});
-            msg.puppeteer = {browser:await puppeteer.launch( { timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, args: [`--remote-debugging-port=${config.debugport}`] } )}
-            this.status({fill:"green",shape:"ring",text:"Launched"});
+            msg.puppeteer = {browser:await puppeteer.launch( {...config, args: [`--remote-debugging-port=${config.debugport}`] } )}
+            this.status({fill:"grey",shape:"ring",text:"Launched"});
           }
         }
         if (msg.puppeteer==undefined) {
-          msg.puppeteer = {browser:await puppeteer.launch( { timeout: config.timeout, slowMo: config.slowMo, headless: config.headless, devtools:config.devtools, defaultViewport: null, ignoreHTTPSErrors: true, args: [`--remote-debugging-port=${config.debugport}`] } )}
-          this.status({fill:"green",shape:"ring",text:"Launched"});
+          msg.puppeteer = {browser:await puppeteer.launch( {...config, args: [`--remote-debugging-port=${config.debugport}`] } )}
+          this.status({fill:"grey",shape:"ring",text:"Launched"});
         }
         msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
         this.send(msg)

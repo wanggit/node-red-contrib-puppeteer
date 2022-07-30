@@ -5,19 +5,13 @@ module.exports = function (RED) {
     // Retrieve the config node
     this.on('input', async function (msg) {
       try {
-        let selector = config.selector
-        selector = config.selectortype=="msg"?msg[config.selector]:selector
-        selector = config.selectortype=="flow"?flowContext.get(config.selector):selector
-        selector = config.selectortype=="global"?globalContext.get(config.selector):selector
-        let property = config.property
-        property = config.propertytype=="msg"?msg[config.property]:property
-        property = config.propertytype=="flow"?flowContext.get(config.property):property
-        property = config.propertytype=="global"?globalContext.get(config.property):property
+        let selector = config.selectortype!="str"?eval(config.selectortype+"."+config.selector):config.selector
+        let property = config.propertytype!="str"?eval(config.propertytype+"."+config.property):config.property
         this.status({fill:"green",shape:"dot",text:`Wait for ${selector}`});
         await msg.puppeteer.page.waitForSelector(selector)
         this.status({fill:"green",shape:"dot",text:`Getting ${selector}`});
         const value =  await msg.puppeteer.page.$eval(selector, (el,property) => el[property], property);
-        this.status({fill:"green",shape:"ring",text:`${value}`});
+        this.status({fill:"grey",shape:"ring",text:`${value}`});
         msg.payload = value
         this.send(msg) 
       } catch(e) {
