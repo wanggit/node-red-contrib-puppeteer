@@ -13,6 +13,7 @@ module.exports = function (RED) {
         this.status({fill:"green",shape:"dot",text:`Closing browser...`});
         await msg.puppeteer.browser.close()
         this.status({fill:"grey",shape:"ring",text:`Browser closed`});
+        delete msg.puppeteer
         node.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});
