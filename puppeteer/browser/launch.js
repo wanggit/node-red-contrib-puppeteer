@@ -25,6 +25,7 @@ module.exports = function (RED) {
           this.status({fill:"grey",shape:"ring",text:"Launched"});
         }
         msg.puppeteer.page = (await msg.puppeteer.browser.pages())[0]
+        msg.puppeteer.page.setDefaultTimeout(config.timeout)
         this.send(msg)
       } catch (e) {
         this.status({fill:"red",shape:"ring",text:e});

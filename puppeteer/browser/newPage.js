@@ -8,6 +8,7 @@ module.exports = function (RED) {
       try {
         this.status({fill:"green",shape:"dot",text:`Opening new Tab...`});
         msg.puppeteer.page = await msg.puppeteer.browser.newPage()
+        msg.puppeteer.page.setDefaultTimeout(config.timeout)
         this.status({fill:"grey",shape:"ring",text:`New Tab created`});
         node.send(msg) 
       } catch (e) {
