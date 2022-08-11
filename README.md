@@ -1,60 +1,26 @@
 # node-red-contrib-puppeteer-new
 
-Pickup update from node-red-contrib-puppeteer
+### Warning & Important!
 
-## Documentation
+```
+Package upgrade would cause run flow error since more attribute and properties add to node. Please reserve time to test when upgrade component.
+```
 
-## July 28, 2022
-### Features
-* Added get value from page
-* goto added wait for page to be loaded
+# Introduction
 
-### Fix
-* Add parameters when attach to existing browser
+Chrome browser automation (puppeteer) in node-red.
 
-## July 27, 2022
-### Features
-* attach to existing browser if specify debug port
+![Demo](Demo.gif)
 
-## April 10, 2022
-### Features
-* Added goto, screenshot options
+# Credits
 
-## April 3, 2022
-### Features
-* Added launch options
-* Added click options
+## fork from
 
-## March 31, 2022
-### Features
-* Added upload node
+Thank you [oliverlorenz](https://github.com/oliverlorenz)! Pickup update from node-red-contrib-puppeteer
 
-## March 28, 2022
-### Features
-* Screenshot with preview
+## Screenshorts Node
 
-### Fix
-* Status bug
-
-## March 27, 2022
-
-### Update
-* Update status
-* Update Icon
-
-## March 26, 2022
-
-### Update
-* Add status
-* Update puppeteer version
-
-### Theme
-* Add color palettes
-
-## March 25, 2022
-
-### Fix
-* **dynamic input fix** - fixed `.msg`,`.global`,`.flow` input
+Copy from [node-red-contrib-image-tools (node) - Node-RED (nodered.org)](https://flows.nodered.org/node/node-red-contrib-image-tools)
 
 ## Icons
 
