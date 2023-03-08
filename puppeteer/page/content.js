@@ -9,14 +9,14 @@ module.exports = function (RED) {
         .then((content) => {
           msg.puppeteer.content = content
           node.send(msg) 
-        })  
-    })
+        });
+    });
+    this.on('close', function() {
+      this.status({});
+    });
     oneditprepare: function oneditprepare() {
       $("#node-input-name").val(this.name)
     }
   }
-  this.on('close', function() {
-    this.status({});
-  });
   RED.nodes.registerType('puppeteer-page-content', PuppeteerPageContent)
 }
