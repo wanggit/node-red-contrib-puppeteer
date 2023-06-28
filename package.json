@@ -32,6 +32,7 @@
       "puppeteer-page-screenshot": "puppeteer/page/screenshot.js",
       "puppeteer-page-content": "puppeteer/page/content.js",
       "puppeteer-page-click": "puppeteer/page/click.js",
+      "puppeteer-page-download": "puppeteer/page/download.js",
       "puppeteer-page-focus": "puppeteer/page/focus.js",
       "puppeteer-page-waitFor": "puppeteer/page/waitFor.js",
       "puppeteer-page-getCookies": "puppeteer/page/getCookies.js",
