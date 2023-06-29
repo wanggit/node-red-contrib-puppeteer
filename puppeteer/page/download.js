@@ -39,6 +39,22 @@ module.exports = function (RED) {
           );
         }
 
+        // Parsing the fileName from string input or from msg object
+        let fileName =
+          nodeConfig.fileNametype == "msg"
+            ? eval(nodeConfig.fileNametype + "." + nodeConfig.fileName)
+            : nodeConfig.fileName;
+        // If the type of fileName is set to flow or global, it needs to be parsed differently
+        if (
+          nodeConfig.fileNametype == "flow" ||
+          nodeConfig.fileNametype == "global"
+        ) {
+          // Parsing the fileName
+          fileName = this.context()[nodeConfig.fileNametype].get(
+            nodeConfig.fileName
+          );
+        }
+
         // If download path is defined
         if (downloadPath && downloadPath != "") {
           // Enable requests interception
@@ -53,7 +69,37 @@ module.exports = function (RED) {
               interceptedRequest.continue(); // Continue the requets as usual
             }
           });
+
+          if (fileName && fileName != "") {
+            msg.puppeteer.page.on("response", async (response) => {
+              // node.warn(response);
+              const url = response.url();
+              const headers = response.headers();
+              const regex = /filename\*?=[^'']*''([^']*)/;
+
+              if (headers["content-disposition"]) {
+                const match = regex.exec(headers["content-disposition"]);
+                node.warn(headers["content-disposition"]);
+                if (match && match[1]) {
+                  const fs = require("fs");
+                  const downloadedFileName = match[1];
+                  const extensionRegex = /\.[^.]*$/;
+                  const extension = extensionRegex.exec(downloadedFileName);
+                  if(extension) {
+                    msg.old = `${downloadPath}/${downloadedFileName}`;
+                    msg.new = `${downloadPath}/${fileName}${extension[0]}`;
+                    node.send(msg);
+                  }
+                  // extension ? msg.old
+                  //   : node.send({ payload: null });
+                  // const fileExtension = extension ? fs.renameSync(`${downloadPath}/${downloadedFileName}`, `${downloadPath}/${fileName}.${extension[0]}`) : node.warn(`File has no extension! saved as ${downloadedFileName} in ${downloadPath}!`);
+                  // fs.renameSync(`${downloadPath}/${downloadedFileName}`, `${downloadPath}/${fileName}.${extension}`);
+                }
+              }
+            });
+          }
         }
+
         // Waiting for the specified selector
         node.status({
           fill: "blue",
@@ -81,9 +127,9 @@ module.exports = function (RED) {
           shape: "dot",
           text: `Clicked ${selector}`,
         });
-        // Sending the msg
-        send(msg);
-
+        if (!fileName || fileName == "")
+          // Sending the msg
+          send(msg);
       } catch (e) {
         // If an error occured
         node.error(e);
@@ -95,10 +141,13 @@ module.exports = function (RED) {
       }
 
       // Clear status of the node
-      setTimeout(() => {
-        done();
-        node.status({});
-      }, (msg.error) ? 10000 : 3000);
+      setTimeout(
+        () => {
+          done();
+          node.status({});
+        },
+        msg.error ? 10000 : 3000
+      );
     });
     this.on("close", function () {
       node.status({});
