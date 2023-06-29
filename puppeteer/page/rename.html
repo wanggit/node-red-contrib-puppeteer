@@ -1,0 +1,69 @@
+<script type="text/javascript">
+  RED.nodes.registerType("puppeteer-rename", {
+    category: "storage",
+    color: "#deb887",
+    defaults: {
+      oldFilePath: { value: "", required: false },
+      oldFilePathtype: { value: "str" },
+      newFilePath: { value: "", required: false },
+      newFilePathtype: { value: "str" },
+      name: { value: "" },
+    },
+    inputs: 1,
+    outputs: 1,
+    icon: "rename.svg",
+    label: function () {
+      return name || "Rename";
+    },
+    paletteLabel: "Rename",
+    oneditprepare: function () {
+      $("#node-input-oldFilePath").typedInput({
+        type: "str",
+        types: ["str", "msg", "flow", "global"],
+        typeField: "#node-input-oldFilePathtype",
+      });
+      $("#node-input-newFilePath").typedInput({
+        type: "str",
+        types: ["str", "msg", "flow", "global"],
+        typeField: "#node-input-newFilePathtype",
+      });
+    },
+  });
+</script>
+
+<script type="text/x-red" data-template-name="puppeteer-page-rename">
+  <div class="form-row">
+    <label for="node-input-oldFilePath"><i class="fa fa-file"></i> Old File Path</label>
+    <input id="node-input-oldFilePath"></input>
+    <input type="hidden" id="node-input-oldFilePathtype"></input>
+  </div>
+  <div class="form-row">
+    <label for="node-input-newFilePath"><i class="fa fa-file-o"></i> New File Path</label>
+    <input id="node-input-newFilePath"></input>
+    <input type="hidden" id="node-input-newFilePathtype"></input>
+  </div>
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+  </div>
+</script>
+
+<script type="text/x-red" data-help-name="puppeteer-page-rename">
+      <p>Click on Chrome</p>
+      <h3>Inputs</h3>
+      <dl class="message-properties">
+          <dt>Selector<span class="property-type">string</span></dt>
+          <dd>A <a href="#interface-selector" title="Selector">selector</a> to search for element to click. If there are multiple elements satisfying the selector, the first will be clicked.</dd>
+          <dt>Button<span class="property-type">string</span></dt>
+          <dd>Slows down Puppeteer operations by the specified amount of milliseconds. Useful so that you can see what is going on.&lt;"left"|"right"|"middle"&gt; Defaults to <code>left</code>.</dd>
+          <dt>Click Count<span class="property-type">number</span></dt>
+          <dd>Whether to run browser in <a href="https://developers.google.com/web/updates/2017/04/headless-chrome" rel="nofollow">headless mode</a>. Defaults to <code>false</code>, it will show Chrome when <code>devtools</code> option is <code>true</code>.defaults to 1. See <a href="https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail" title="UIEvent.detail" rel="nofollow">UIEvent.detail</a>.</dd>
+          <dt>Delay<span class="property-type">number</span></dt>
+          <dd>Specify custom debugging port. Pass <code>0</code> to discover a random port. Defaults to <code>0</code>.Time to wait between <code>mousedown</code> and <code>mouseup</code> in milliseconds. Defaults to 0.</dd>
+          <dt>Rename path<span class="property-type">string</span></dt>
+          <dd>Specify custom rename path. Leave the field blank for default rename path. Defaults to user's default browser rename path.</dd>
+      </dl>
+      <h3>Details</h3>
+          <p>This method fetches an element with <code>selector</code>, scrolls it into view if needed, and then uses <code>page.mouse</code> to click in the center of the element.
+  If there's no element matching <code>selector</code>, the method throws an error.</p>
+</script>
