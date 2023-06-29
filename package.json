@@ -32,6 +32,7 @@
       "puppeteer-page-screenshot": "puppeteer/page/screenshot.js",
       "puppeteer-page-content": "puppeteer/page/content.js",
       "puppeteer-page-click": "puppeteer/page/click.js",
+      "puppeteer-page-download": "puppeteer/page/download.js",
       "puppeteer-page-focus": "puppeteer/page/focus.js",
       "puppeteer-page-waitFor": "puppeteer/page/waitFor.js",
       "puppeteer-page-getCookies": "puppeteer/page/getCookies.js",
@@ -42,7 +43,8 @@
       "puppeteer-page-keyboard-press": "puppeteer/page/keyboard/press.js",
       "puppeteer-page-get-value": "puppeteer/page/get.js",
       "puppeteer-page-set-value": "puppeteer/page/set.js",
-      "puppeteer-page-upload": "puppeteer/page/upload.js"
+      "puppeteer-page-upload": "puppeteer/page/upload.js",
+      "puppeteer-rename": "puppeteer/page/rename.js"
     }
   }
 }

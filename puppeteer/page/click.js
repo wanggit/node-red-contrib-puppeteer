@@ -23,37 +23,6 @@ module.exports = function (RED) {
           );
         }
 
-        // Parsing the downloadPath from string input or from msg object
-        let downloadPath =
-          nodeConfig.downloadPathtype == "msg"
-            ? eval(nodeConfig.downloadPathtype + "." + nodeConfig.downloadPath)
-            : nodeConfig.downloadPath;
-        // If the type of downloadPath is set to flow or global, it needs to be parsed differently
-        if (
-          nodeConfig.downloadPathtype == "flow" ||
-          nodeConfig.downloadPathtype == "global"
-        ) {
-          // Parsing the downloadPath
-          downloadPath = this.context()[nodeConfig.downloadPathtype].get(
-            nodeConfig.downloadPath
-          );
-        }
-
-        // If download path is defined
-        if (downloadPath && downloadPath != "") {
-          // Enable requests interception
-          await msg.puppeteer.page.setRequestInterception(true);
-
-          // When request comes
-          msg.puppeteer.page.on("request", (interceptedRequest) => {
-            // And for everything that ends with zip (for now only supported file type)
-            if (interceptedRequest.url().endsWith(".zip")) {
-              interceptedRequest.continue({ url: "chrome://downloads/" }); // Continue to downloads url where download path is defined
-            } else {
-              interceptedRequest.continue(); // Continue the requets as usual
-            }
-          });
-        }
         // Waiting for the specified selector
         node.status({
           fill: "blue",
@@ -65,15 +34,6 @@ module.exports = function (RED) {
         // Clicking on the specified selector
         node.status({ fill: "blue", shape: "dot", text: `Click ${selector}` });
         await msg.puppeteer.page.click(selector, nodeConfig);
-
-        // If download path was specified
-        if (downloadPath && downloadPath != "") {
-          // Set the download path and download the file to it
-          await msg.puppeteer.page._client.send("Page.setDownloadBehavior", {
-            behavior: "allow",
-            downloadPath: downloadPath,
-          });
-        }
 
         // Selector clicked sucessfully
         node.status({
