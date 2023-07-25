@@ -1,6 +1,6 @@
 {
   "name": "@digitalnodecom/node-red-contrib-puppeteer",
-  "version": "0.3.7",
+  "version": "1.0.0",
   "description": "NodeRED nodes to control a headless chrome with puppeteer",
   "main": "index.js",
   "scripts": {},
@@ -27,7 +27,7 @@
     "node-red"
   ],
   "node-red": {
-    "version":">=2.0.0",
+    "version": ">=2.0.0",
     "nodes": {
       "puppeteer-browser-launch": "puppeteer/browser/launch.js",
       "puppeteer-browser-close": "puppeteer/browser/close.js",
