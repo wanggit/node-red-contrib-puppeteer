@@ -1,4 +1,4 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra"); // TO-DO: Make this optional.
 
 module.exports = function (RED) {
   function PuppeteerBrowserClose(nodeConfig) {

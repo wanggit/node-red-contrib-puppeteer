@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra"); // TO-DO: Make this optional.
+const stealth = require('puppeteer-extra-plugin-stealth');
 
 module.exports = function (RED) {
   function PuppeteerBrowserLaunch(nodeConfig) {
@@ -6,6 +7,7 @@ module.exports = function (RED) {
     nodeConfig.defaultViewport = null; // Setting the node's default viewport
     nodeConfig.ignoreHTTPSErrors = true; // Setting the node's ignoreHttpsErrors property
     var node = this; // Referencing the current node
+    puppeteer.use(stealth()); // TO-DO: Make optional. Use stealth.
 
     this.on("input", async function (msg, send, done) {
       try {
@@ -112,6 +114,7 @@ module.exports = function (RED) {
       $("#node-input-debugport").val(nodeConfig.debugport);
       $("#node-input-devtools").val(nodeConfig.devtools);
       $("#node-input-name").val(nodeConfig.name);
+      $("#node-input-executablePath").val(nodeConfig.executablePath);
     }
   }
   RED.nodes.registerType("puppeteer-browser-launch", PuppeteerBrowserLaunch);

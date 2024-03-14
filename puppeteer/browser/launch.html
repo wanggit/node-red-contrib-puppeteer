@@ -10,6 +10,7 @@
       devtools: { value: false },
       cookies: { value: "" },
       name: { value: "" },
+      executablePath: { value: "" },
     },
     inputs: 1,
     outputs: 1,
@@ -51,6 +52,10 @@
   <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" style="width:70%;" placeholder="Name" />
+  </div>
+  <div class="form-row">
+    <label for="node-input-executablePath"><i class="fa fa-tag"></i> Executable Path</label>
+    <input type="text" id="node-input-executablePath" style="width:70%;" placeholder="Change this if you have a different chromium path..." />
   </div>
   <div class="form-tips">
       <span data-i18n="[html]tip1">This node launches a chromium instance and sets cookies to it if specified. The cookies should be a list of cookie objects where each one has the following properties and they should be passed in as <code>msg.payload</code>, or if directly into the input field it should be a valid JSON list:
