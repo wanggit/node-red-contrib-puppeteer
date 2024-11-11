@@ -37,10 +37,12 @@ module.exports = function (RED) {
             });
 
             // Launch a new browser with node's config
+            var launchArgs = nodeConfig.arguments.split(',') || []
+            launchArgs.push(`--remote-debugging-port=${nodeConfig.debugport}`)
             msg.puppeteer = {
               browser: await puppeteer.launch({
                 ...nodeConfig,
-                args: [`--remote-debugging-port=${nodeConfig.debugport}`],
+                args: launchArgs,
               }),
             };
             // Browser launched sucessfully
