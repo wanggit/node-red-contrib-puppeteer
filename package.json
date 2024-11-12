@@ -1,5 +1,5 @@
 {
-  "name": "@wanggmail/node-red-contrib-puppeteer",
+  "name": "@wangg-mail/node-red-contrib-puppeteer",
   "version": "1.2.1",
   "description": "fork from digitalnodecom/node-red-contrib-puppeteer, add puppeteer launch arguments. NodeRED nodes to control a headless chrome with puppeteer",
   "main": "index.js",
