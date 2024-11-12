@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 1.2.1 - 2024-11-12
+- add puppeteer launch arguments for Launch Node.
+
 ## 1.2.0 - 2024-03-14
 
 ## 1.0.1 - 2023-07-26

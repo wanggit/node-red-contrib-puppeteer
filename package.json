@@ -1,13 +1,12 @@
 {
-  "name": "@digitalnodecom/node-red-contrib-puppeteer",
-  "version": "1.2.0",
-  "description": "NodeRED nodes to control a headless chrome with puppeteer",
+  "name": "@wanggmail/node-red-contrib-puppeteer",
+  "version": "1.2.1",
+  "description": "fork from digitalnodecom/node-red-contrib-puppeteer, add puppeteer launch arguments. NodeRED nodes to control a headless chrome with puppeteer",
   "main": "index.js",
   "scripts": {},
   "author": {
-    "name": "Riste Ristov",
-    "email": "ristov@riste.mk",
-    "url": "https://riste.mk"
+    "name": "wanggmail",
+    "email": "wanggmail@163.com"
   },
   "license": "MIT",
   "dependencies": {
@@ -21,11 +20,11 @@
     "puppeteer-extra-plugin-user-preferences": "^2.4.1"
   },
   "bugs": {
-    "url": "https://github.com/digitalnodecom/node-red-contrib-puppeteer/issues"
+    "url": "https://github.com/wanggit/node-red-contrib-puppeteer/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/digitalnodecom/node-red-contrib-puppeteer"
+    "url": "https://github.com/wanggit/node-red-contrib-puppeteer"
   },
   "keywords": [
     "chrome",
